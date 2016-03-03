@@ -4,7 +4,6 @@ import Breakout.Components.Ball;
 import acm.graphics.GObject;
 import acm.graphics.GPoint;
 import acm.program.GraphicsProgram;
-
 import java.util.ArrayList;
 import java.util.List;
 

@@ -4,16 +4,14 @@ import Breakout.Components.Brick.Brick;
 import Breakout.Components.Brick.BrickFactory;
 import acm.program.GraphicsProgram;
 
-import java.awt.*;
-import java.util.ArrayList;
+import java.awt.Dimension;
+import java.util.*;
+import java.util.List;
 
-/**
- * Created by philipp on 27.02.16.
- */
 public class Board {
     private Ball ball;
 
-    private ArrayList<Brick> bricks;
+    private List<Brick> bricks;
 
     private GraphicsProgram graphicEngine;
 
@@ -32,7 +30,7 @@ public class Board {
 
         BrickFactory brickFactory = new BrickFactory();
 
-        ArrayList<Brick> bricks = new ArrayList<Brick>();
+        List<Brick> bricks = new ArrayList<>();
         for (double x = 0; x <= blocksPerRowAmount; x++) {
             for (double y = 0; y <= rowsAmount; y++) {
                 double startX = (x * width) + x * offset;
@@ -70,11 +68,11 @@ public class Board {
         this.ball = ball;
     }
 
-    public ArrayList<Brick> getBricks() {
+    public List<Brick> getBricks() {
         return bricks;
     }
 
-    public void setBricks(ArrayList<Brick> bricks) {
+    public void setBricks(List<Brick> bricks) {
         this.bricks = bricks;
     }
 
