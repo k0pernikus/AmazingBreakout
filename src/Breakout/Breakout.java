@@ -6,6 +6,7 @@ import java.awt.event.KeyEvent;
 
 import Breakout.Service.BallCollisionDetector;
 import Breakout.Service.BrickDestroyer;
+import Breakout.Service.FieldKeeper;
 import acm.graphics.*;
 import acm.program.*;
 import Breakout.Components.Ball;
@@ -29,6 +30,8 @@ public class Breakout extends GraphicsProgram {
     private BallCollisionDetector ballCollisionDetector;
 
     private BrickDestroyer brickDestryper;
+
+    private FieldKeeper fieldKeeper;
 
     @Override
     public void keyPressed(KeyEvent event) {
@@ -59,13 +62,14 @@ public class Breakout extends GraphicsProgram {
     public void init() {
         super.init();
 
-        this.addKeyListeners();
+        addKeyListeners();
 
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
         this.gameDimension = new Dimension((int) screen.getWidth() / 2, (int) screen.getHeight() - 100);
         this.resize((int) this.gameDimension.getWidth(), (int) this.gameDimension.getHeight());
 
         this.brickDestryper = new BrickDestroyer();
+        this.fieldKeeper = new FieldKeeper(this, gameDimension);
         this.ballCollisionDetector = new BallCollisionDetector(this);
 
         this.ball = new Ball(this.gameDimension.getWidth() * .5, this.gameDimension.getHeight() * .5, 10);
@@ -75,51 +79,30 @@ public class Breakout extends GraphicsProgram {
 
     public void run() {
         while (true) {
-            GObject hitElement = this.ballCollisionDetector.getHitElement(this.ball);
-            this.handleBricks(hitElement);
-
-            if (hitElement instanceof Paddle) {
-                ball.invertDirection(Ball.Y_DIRECTION);
-            }
-
-            this.handleGameFieldCorners();
-
-            ball.move();
-            paddle.move();
+            GObject hitElement = ballCollisionDetector.getHitElement(ball);
+            handleHitGObject(hitElement);
+            fieldKeeper.guardBall(ball);
+            moveAllTheThings();
             board.draw();
 
-            this.pause(loopDelay);
+            pause(loopDelay);
         }
     }
 
-    private void handleGameFieldCorners() {
-        if (ball.getY() < 0) {
+    private void moveAllTheThings() {
+        ball.move();
+        paddle.move();
+    }
+
+    private void handleHitGObject(GObject hitElement) {
+        if (hitElement instanceof Paddle) {
             ball.invertDirection(Ball.Y_DIRECTION);
         }
 
-        if (ball.getX() < 0 || ball.getX() > this.gameDimension.getWidth()) {
-            ball.invertDirection(Ball.X_DIRECTION);
-        }
-
-        if (ball.getY() < 0) {
-            ball.setyDirectoon(10);
-        }
-
-
-        if (ball.getY() + ball.getWidth() > this.gameDimension.getHeight()) {
-            /**
-             * todo: lose the game
-             */
-            ball.setyDirectoon(-10);
-        }
-    }
-
-    private void handleBricks(GObject hitElement) {
         if (hitElement instanceof BrickInterface) {
-            if (this.brickDestryper.destroyBrick((BrickInterface) hitElement)) {
+            if (brickDestryper.destroyBrick((BrickInterface) hitElement)) {
                 ball.invertDirection(Ball.Y_DIRECTION);
             }
         }
     }
-
 }
