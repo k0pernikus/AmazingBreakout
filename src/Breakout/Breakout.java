@@ -58,16 +58,19 @@ public class Breakout extends GraphicsProgram {
     @Override
     public void init() {
         super.init();
+
         this.addKeyListeners();
+
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-        this.brickDestryper = new BrickDestroyer();
         this.gameDimension = new Dimension((int) screen.getWidth() / 2, (int) screen.getHeight() - 100);
         this.resize((int) this.gameDimension.getWidth(), (int) this.gameDimension.getHeight());
+
+        this.brickDestryper = new BrickDestroyer();
+        this.ballCollisionDetector = new BallCollisionDetector(this);
+
         this.ball = new Ball(this.gameDimension.getWidth() * .5, this.gameDimension.getHeight() * .5, 10);
         this.paddle = Paddle.makePaddle(this.gameDimension);
-        this.ballCollisionDetector = new BallCollisionDetector(this);
         this.board = new Board(this, this.gameDimension, this.paddle, this.ball);
-        this.addKeyListeners();
     }
 
     public void run() {

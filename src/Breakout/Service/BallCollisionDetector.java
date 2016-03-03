@@ -4,7 +4,9 @@ import Breakout.Components.Ball;
 import acm.graphics.GObject;
 import acm.graphics.GPoint;
 import acm.program.GraphicsProgram;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -44,17 +46,11 @@ public class BallCollisionDetector {
         double y = ball.getY();
         double yLower = y + ball.getHeight();
 
-        List<GPoint> list = new ArrayList<>();
-        GPoint p1 = new GPoint(x, y);
-        GPoint p2 = new GPoint(xLower, y);
-        GPoint p3 = new GPoint(x, yLower);
-        GPoint p4 = new GPoint(xLower, yLower);
-
-        list.add(p1);
-        list.add(p2);
-        list.add(p3);
-        list.add(p4);
-
-        return list;
+        return new ArrayList<>(Arrays.asList(
+                new GPoint(x, y),
+                new GPoint(xLower, y),
+                new GPoint(x, yLower),
+                new GPoint(xLower, yLower)
+        ));
     }
 }
