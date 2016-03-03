@@ -19,8 +19,10 @@ public class Brick extends GRect implements BrickInterface {
         this.setActive(true);
     }
 
-    public void destroy() {
+    public boolean destroy() {
         this.setActive(false);
+
+        return true;
     }
 
     public boolean isActive() {

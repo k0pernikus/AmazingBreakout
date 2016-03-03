@@ -5,12 +5,12 @@ package Breakout.Components.Brick;
  */
 public interface BrickInterface {
     boolean isHittable();
+
     boolean isActive();
 
     double getWidth();
 
     double getHeight();
 
-
-    void destroy();
+    boolean destroy();
 }

@@ -8,15 +8,18 @@ import Breakout.Components.Brick.BrickInterface;
 public class BrickDestroyer {
     public boolean destroyBrick(BrickInterface brick) {
 
-        if (!brick.isActive()) {
-            return false;
-        }
-        if (!brick.isHittable()) {
-            return false;
-        }
+        if (!isDestoryable(brick)) return false;
 
-        brick.destroy();
+        return brick.destroy();
+    }
 
-        return true;
+    private boolean isDestoryable(BrickInterface brick) {
+        if (brick.isActive()) {
+            return true;
+        }
+        if (brick.isHittable()) {
+            return true;
+        }
+        return false;
     }
 }
