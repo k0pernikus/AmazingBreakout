@@ -20,7 +20,7 @@ public class BallCollisionDetector {
     }
 
     public GObject getHitElement(Ball ball) {
-        List<GPoint> list = getOuterBoundPoints(ball);
+        List<GPoint> list = this.getOuterBoundPoints(ball);
 
         GObject hitElement = null;
 
