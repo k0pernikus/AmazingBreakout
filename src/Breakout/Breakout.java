@@ -1,9 +1,9 @@
 package Breakout;
 
-
-import java.awt.*;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
-
+import Breakout.Service.BallCollisionDetector;
 import acm.graphics.*;
 import acm.program.*;
 import Breakout.Components.Ball;
@@ -24,6 +24,7 @@ public class Breakout extends GraphicsProgram {
 
     final double loopDelay = 20;
 
+    private BallCollisionDetector ballCollisionDetector;
 
     @Override
     public void keyPressed(KeyEvent event) {
@@ -57,15 +58,17 @@ public class Breakout extends GraphicsProgram {
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
         this.gameDimension = new Dimension((int) screen.getWidth() / 2, (int) screen.getHeight() - 100);
         this.resize((int) this.gameDimension.getWidth(), (int) this.gameDimension.getHeight());
-        this.ball = new Ball();
+        this.ball = new Ball(this.gameDimension.getWidth() * .5, this.gameDimension.getHeight() * .5, 10);
         this.paddle = Paddle.makePaddle(this.gameDimension);
+        this.ballCollisionDetector = new BallCollisionDetector(this);
         this.board = new Board(this, this.gameDimension, this.paddle, this.ball);
         this.addKeyListeners();
     }
 
     public void run() {
         while (true) {
-            GObject hitElement = getHitElement(this.ball);
+
+            GObject hitElement = this.ballCollisionDetector.getHitElement(this.ball);
 
             handleBricks(hitElement);
 
@@ -87,7 +90,7 @@ public class Breakout extends GraphicsProgram {
             }
 
 
-            if (ball.getY() > this.gameDimension.getHeight()) {
+            if (ball.getY() + ball.getWidth() > this.gameDimension.getHeight()) {
                 /**
                  * todo: lose the game
                  */
@@ -116,39 +119,4 @@ public class Breakout extends GraphicsProgram {
         }
     }
 
-    private GObject getHitElement(Ball ball) {
-        /**
-         * fixme: The collision between Paddle and ball is not properly detected when hit from above
-         * todo: Treat ball as ball and not as a rectangle. Nice to have.
-         */
-
-        double top = ball.getX();
-        double bottom = top + 2 * ball.getRadius();
-        double left = ball.getY();
-        double right = ball.getY() + 2 * ball.getRadius();
-
-        double x = ball.getX();
-        double y = ball.getY();
-        double r = 2 * ball.getRadius();
-
-        GObject hitElement = getElementAt(x, y);
-
-        if (null == hitElement) {
-            this.getElementAt(top, left);
-        }
-
-        if (null == hitElement) {
-            this.getElementAt(top, right);
-        }
-
-        if (null == hitElement) {
-            this.getElementAt(bottom, right);
-        }
-
-        if (null == hitElement) {
-            this.getElementAt(bottom, left);
-        }
-
-        return hitElement;
-    }
 }

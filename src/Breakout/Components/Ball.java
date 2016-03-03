@@ -19,9 +19,8 @@ public class Ball extends GOval {
     private double radius;
 
     public Ball(double startX, double startY, double radius) {
-        super(0, 200);
-        this.setRadius(radius);
-        super.setSize(radius * 2, radius * 2);
+        super(startX, startY, radius*2, radius*2);
+        this.radius = radius;
         this.setFillColor(Color.BLACK);
         this.setFilled(true);
     }

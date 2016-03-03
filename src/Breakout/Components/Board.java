@@ -32,7 +32,7 @@ public class Board {
 
         BrickFactory brickFactory = new BrickFactory();
 
-        ArrayList<Brick> bricks = new ArrayList<>();
+        ArrayList<Brick> bricks = new ArrayList<Brick>();
         for (double x = 0; x <= blocksPerRowAmount; x++) {
             for (double y = 0; y <= rowsAmount; y++) {
                 double startX = (x * width) + x * offset;
@@ -52,7 +52,7 @@ public class Board {
         this.graphicEngine.remove(this.getBall());
         this.graphicEngine.add(this.getBall());
 
-        this.getBall().sendToBack();    
+        this.getBall().sendToBack();
 
         for (Brick brick : this.getBricks()) {
             this.graphicEngine.remove(brick);
