@@ -19,10 +19,10 @@ public class Ball extends GOval {
     private double radius;
 
     public Ball(double startX, double startY, double radius) {
-        super(startX, startY, radius*2, radius*2);
-        this.radius = radius;
-        this.setFillColor(Color.BLACK);
-        this.setFilled(true);
+        super(startX, startY, radius * 2, radius * 2);
+        setRadius(radius);
+        setFillColor(Color.BLACK);
+        setFilled(true);
     }
 
     public void move() {
@@ -31,12 +31,6 @@ public class Ball extends GOval {
         }
         this.setLocation(this.getX() + xDirection, this.getY() + this.yDirectoon);
     }
-
-    public void invertDirection() {
-        this.setxDirection(-this.getxDirection());
-        this.setyDirectoon(-this.getyDirectoon());
-    }
-
 
     public void pause() {
         this.isPaused = true;
@@ -55,11 +49,11 @@ public class Ball extends GOval {
      */
     public void invertDirection(int type) {
         if (type == Ball.X_DIRECTION) {
-            this.setxDirection(-this.getxDirection());
+            setxDirection(-getxDirection());
         }
 
         if (type == Ball.Y_DIRECTION) {
-            this.setyDirectoon(-this.getyDirectoon());
+            setyDirectoon(-getyDirectoon());
         }
     }
 
