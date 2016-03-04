@@ -9,11 +9,12 @@ import Breakout.Components.Brick.UndestroyableException;
 public class BrickDestroyer {
     public boolean destroyBrick(BrickInterface brick) {
 
-        boolean isDestroyed = false;
+        boolean isDestroyed;
         try {
             brick.destroy();
             isDestroyed = true;
         } catch (UndestroyableException e) {
+            isDestroyed = false;
         }
 
         return isDestroyed;
