@@ -24,7 +24,7 @@ public class FieldKeeper {
             ball.invertDirection(Ball.Y_DIRECTION);
         }
 
-        if (ball.getX() < 0 || ball.getX() > this.gameDimension.getWidth()) {
+        if (ball.getX() < 0 || ball.getX() > gameDimension.getWidth()) {
             ball.invertDirection(Ball.X_DIRECTION);
         }
 
@@ -32,13 +32,11 @@ public class FieldKeeper {
             ball.setyDirectoon(10);
         }
 
-        if (ball.getY() + ball.getWidth() > this.gameDimension.getHeight()) {
+        if (ball.getY() + ball.getWidth() > gameDimension.getHeight()) {
             /**
              * todo: lose the game
              */
             ball.setyDirectoon(-10);
         }
-
     }
-
 }

@@ -6,11 +6,13 @@ package Breakout.Components.Brick;
 public interface BrickInterface {
     boolean isHittable();
 
-    boolean isActive();
+    boolean isDestroyed();
+
+    void destroy();
 
     double getWidth();
 
     double getHeight();
 
-    boolean destroy();
+    boolean isDestroyable();
 }

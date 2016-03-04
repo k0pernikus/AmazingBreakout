@@ -20,11 +20,14 @@ public class MultiHitBrick extends Brick implements BrickInterface {
         this.setFillColor(this.colors[this.hitCount]);
     }
 
+    public boolean isDestroyable() {
+        return hitCount > 3;
+    }
+
     @Override
-    public boolean destroy() {
+    public void destroy() {
         if (this.hitCount > 3) {
             super.destroy();
-            return true;
         }
 
         this.hitCount = this.hitCount + 1;
@@ -32,7 +35,5 @@ public class MultiHitBrick extends Brick implements BrickInterface {
         if (this.hitCount >= 0 && this.hitCount <= 3) {
             this.setFillColor(this.colors[this.hitCount]);
         }
-
-        return false;
     }
 }

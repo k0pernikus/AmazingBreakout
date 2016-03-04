@@ -44,18 +44,16 @@ public class Board {
     }
 
     public void draw() {
-        this.graphicEngine.remove(this.getPaddle());
-        this.graphicEngine.add(this.getPaddle());
+        graphicEngine.remove(this.getPaddle());
+        graphicEngine.add(this.getPaddle());
 
-        this.graphicEngine.remove(this.getBall());
-        this.graphicEngine.add(this.getBall());
-
-        this.getBall().sendToBack();
+        graphicEngine.remove(this.getBall());
+        graphicEngine.add(this.getBall());
 
         for (Brick brick : this.getBricks()) {
-            this.graphicEngine.remove(brick);
-            if (brick.isActive()) {
-                this.graphicEngine.add(brick);
+            graphicEngine.remove(brick);
+            if (!brick.isDestroyed()) {
+                graphicEngine.add(brick);
             }
         }
     }

@@ -29,7 +29,7 @@ public class Breakout extends GraphicsProgram {
 
     private BallCollisionDetector ballCollisionDetector;
 
-    private BrickDestroyer brickDestryper;
+    private BrickDestroyer brickDestroyer;
 
     private FieldKeeper fieldKeeper;
 
@@ -61,31 +61,29 @@ public class Breakout extends GraphicsProgram {
     @Override
     public void init() {
         super.init();
-
         addKeyListeners();
-
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
         this.gameDimension = new Dimension((int) screen.getWidth() / 2, (int) screen.getHeight() - 100);
-        this.resize((int) this.gameDimension.getWidth(), (int) this.gameDimension.getHeight());
+        resize((int) this.gameDimension.getWidth(), (int) this.gameDimension.getHeight());
 
-        this.brickDestryper = new BrickDestroyer();
+        this.brickDestroyer = new BrickDestroyer();
         this.fieldKeeper = new FieldKeeper(this, gameDimension);
         this.ballCollisionDetector = new BallCollisionDetector(this);
 
-        this.ball = new Ball(this.gameDimension.getWidth() * .5, this.gameDimension.getHeight() * .5, 10);
+        this.ball = new Ball(this.gameDimension.getWidth() * .5, this.gameDimension.getHeight() * .25, 10);
         this.paddle = Paddle.makePaddle(this.gameDimension);
         this.board = new Board(this, this.gameDimension, this.paddle, this.ball);
     }
 
     public void run() {
         while (true) {
-            GObject hitElement = ballCollisionDetector.getHitElement(ball);
+            GObject hitElement = this.ballCollisionDetector.getHitElement(ball);
             handleHitGObject(hitElement);
             fieldKeeper.guardBall(ball);
             moveAllTheThings();
             board.draw();
 
-            pause(loopDelay);
+            pause(this.loopDelay);
         }
     }
 
@@ -100,7 +98,7 @@ public class Breakout extends GraphicsProgram {
         }
 
         if (hitElement instanceof BrickInterface) {
-            if (brickDestryper.destroyBrick((BrickInterface) hitElement)) {
+            if (brickDestroyer.destroyBrick((BrickInterface) hitElement)) {
                 ball.invertDirection(Ball.Y_DIRECTION);
             }
         }

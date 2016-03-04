@@ -20,12 +20,12 @@ public class BallCollisionDetector {
     }
 
     public GObject getHitElement(Ball ball) {
-        List<GPoint> list = this.getOuterBoundPoints(ball);
+        List<GPoint> list = getOuterBoundPoints(ball);
 
         GObject hitElement = null;
 
         for (GPoint point : list) {
-            hitElement = this.graphicsEngine.getElementAt(point);
+            hitElement = graphicsEngine.getElementAt(point);
 
             if (hitElement != null) {
                 break;
