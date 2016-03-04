@@ -1,5 +1,8 @@
 package Breakout.Components.Brick;
 
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -10,8 +13,24 @@ public class BrickFactory {
 
     public static double hardBrickProbability = .2;
 
-    public Brick createBrick(double startX, double startY, double width, double height) {
-        float chance = this.random.nextFloat();
+    public List<BrickInterface> buildBricks(Dimension dimension, int rowsAmount, int blocksPerRowAmount, int offset) {
+        double width = dimension.width / blocksPerRowAmount - offset;
+        double height = dimension.height * .03;
+        List<BrickInterface> bricks = new ArrayList<>();
+        for (double x = 0; x <= blocksPerRowAmount; x++) {
+            for (double y = 0; y <= rowsAmount; y++) {
+                double startX = (x * width) + x * offset;
+                double startY = (y * height) + y * offset;
+                bricks.add(createBrick(startX, startY, width, height));
+            }
+        }
+
+        return bricks;
+    }
+
+
+    private BrickInterface createBrick(double startX, double startY, double width, double height) {
+        float chance = random.nextFloat();
 
         if (chance < BrickFactory.hardBrickProbability) {
             return new MultiHitBrick(startX, startY, width, height);

@@ -3,7 +3,9 @@ package Breakout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
+import java.util.List;
 
+import Breakout.Components.Brick.BrickFactory;
 import Breakout.Service.BallCollisionDetector;
 import Breakout.Service.BrickDestroyer;
 import Breakout.Service.FieldKeeper;
@@ -72,7 +74,8 @@ public class Breakout extends GraphicsProgram {
 
         this.ball = new Ball(this.gameDimension.getWidth() * .5, this.gameDimension.getHeight() * .25, 10);
         this.paddle = Paddle.makePaddle(this.gameDimension);
-        this.board = new Board(this, this.gameDimension, this.paddle, this.ball);
+        List<BrickInterface> bricks = new BrickFactory().buildBricks(gameDimension, 10, 3, 10);
+        this.board = new Board(this, this.gameDimension, this.paddle, this.ball, bricks);
     }
 
     public void run() {

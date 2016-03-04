@@ -2,6 +2,8 @@ package Breakout.Components;
 
 import Breakout.Components.Brick.Brick;
 import Breakout.Components.Brick.BrickFactory;
+import Breakout.Components.Brick.BrickInterface;
+import acm.graphics.GObject;
 import acm.program.GraphicsProgram;
 
 import java.awt.Dimension;
@@ -11,49 +13,30 @@ import java.util.List;
 public class Board {
     private Ball ball;
 
-    private List<Brick> bricks;
+    private List<BrickInterface> bricks;
 
     private GraphicsProgram graphicEngine;
 
     private Paddle paddle;
 
-    public Board(GraphicsProgram graphicEngine, Dimension gameDimension, Paddle paddle, Ball ball) {
+    public Board(GraphicsProgram graphicEngine, Dimension gameDimension, Paddle paddle, Ball ball, List<BrickInterface> bricks) {
         this.graphicEngine = graphicEngine;
         this.setBall(ball);
         this.setPaddle(paddle);
-
-        int rowsAmount = 3;
-        int blocksPerRowAmount = 10;
-        double offset = 10;
-        double width = gameDimension.width / blocksPerRowAmount - offset;
-        double height = gameDimension.height * .03;
-
-        BrickFactory brickFactory = new BrickFactory();
-
-        List<Brick> bricks = new ArrayList<>();
-        for (double x = 0; x <= blocksPerRowAmount; x++) {
-            for (double y = 0; y <= rowsAmount; y++) {
-                double startX = (x * width) + x * offset;
-                double startY = (y * height) + y * offset;
-                bricks.add(brickFactory.createBrick(startX, startY, width, height));
-            }
-        }
-
-
         this.setBricks(bricks);
     }
 
     public void draw() {
-        graphicEngine.remove(this.getPaddle());
-        graphicEngine.add(this.getPaddle());
+        graphicEngine.remove(getPaddle());
+        graphicEngine.add(getPaddle());
 
-        graphicEngine.remove(this.getBall());
-        graphicEngine.add(this.getBall());
+        graphicEngine.remove(getBall());
+        graphicEngine.add(getBall());
 
-        for (Brick brick : this.getBricks()) {
-            graphicEngine.remove(brick);
+        for (BrickInterface brick : getBricks()) {
+            graphicEngine.remove((GObject) brick);
             if (!brick.isDestroyed()) {
-                graphicEngine.add(brick);
+                graphicEngine.add((GObject) brick);
             }
         }
     }
@@ -66,11 +49,11 @@ public class Board {
         this.ball = ball;
     }
 
-    public List<Brick> getBricks() {
+    public List<BrickInterface> getBricks() {
         return bricks;
     }
 
-    public void setBricks(List<Brick> bricks) {
+    public void setBricks(List<BrickInterface> bricks) {
         this.bricks = bricks;
     }
 
