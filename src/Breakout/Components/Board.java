@@ -1,13 +1,10 @@
 package Breakout.Components;
 
-import Breakout.Components.Brick.Brick;
-import Breakout.Components.Brick.BrickFactory;
 import Breakout.Components.Brick.BrickInterface;
 import acm.graphics.GObject;
 import acm.program.GraphicsProgram;
 
-import java.awt.Dimension;
-import java.util.*;
+import java.awt.*;
 import java.util.List;
 
 public class Board {

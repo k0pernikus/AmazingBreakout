@@ -1,25 +1,22 @@
 package Breakout;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
-import java.awt.event.KeyEvent;
-import java.util.List;
-
+import Breakout.Components.Ball;
+import Breakout.Components.Board;
 import Breakout.Components.Brick.BrickFactory;
+import Breakout.Components.Brick.BrickInterface;
+import Breakout.Components.Paddle;
 import Breakout.Service.BallCollisionDetector;
 import Breakout.Service.BrickDestroyer;
 import Breakout.Service.FieldKeeper;
-import acm.graphics.*;
-import acm.program.*;
-import Breakout.Components.Ball;
-import Breakout.Components.Brick.BrickInterface;
-import Breakout.Components.Board;
-import Breakout.Components.Paddle;
+import acm.graphics.GObject;
+import acm.program.GraphicsProgram;
+
+import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.util.List;
 
 
 public class Breakout extends GraphicsProgram {
-
-    public double BASE_SPEED_IN_PIXEL = 10;
 
     private Dimension gameDimension;
 
@@ -40,37 +37,26 @@ public class Breakout extends GraphicsProgram {
     @Override
     public void keyPressed(KeyEvent event) {
         ball.unpause();
-        super.keyPressed(event);
-
-        int c = event.getKeyCode();
-
-        switch (c) {
-            case KeyEvent.VK_RIGHT:
-                paddle.move(Paddle.BASE_SPEED);
-                break;
-            case KeyEvent.VK_LEFT:
-                paddle.move(Paddle.BASE_SPEED);
-                break;
-        }
     }
 
     @Override
     public void init() {
         super.init();
         addKeyListeners();
-        addMouseListeners();
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-        this.gameDimension = new Dimension((int) screen.getWidth() / 2, (int) screen.getHeight() - 100);
+        this.gameDimension = new Dimension((int) screen.getWidth() / 4, (int) screen.getHeight() - 100);
         resize((int) this.gameDimension.getWidth(), (int) this.gameDimension.getHeight());
 
         this.brickDestroyer = new BrickDestroyer();
         this.fieldKeeper = new FieldKeeper(this, gameDimension);
         this.ballCollisionDetector = new BallCollisionDetector(this);
 
-        this.ball = new Ball(this.gameDimension.getWidth() * .5, this.gameDimension.getHeight() * .25, 10);
+        this.ball = new Ball(gameDimension.getWidth() * .5, gameDimension.getHeight() * .25, 10);
         this.paddle = Paddle.makePaddle(this.gameDimension);
-        List<BrickInterface> bricks = new BrickFactory().buildBricks(gameDimension, 10, 3, 10);
-        this.board = new Board(this, this.gameDimension, this.paddle, this.ball, bricks);
+        addMouseListeners(paddle);
+
+        List<BrickInterface> bricks = new BrickFactory().buildBricks(gameDimension, 2, 10, 10);
+        this.board = new Board(this, gameDimension, paddle, ball, bricks);
     }
 
     public void run() {
