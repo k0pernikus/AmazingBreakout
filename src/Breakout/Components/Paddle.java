@@ -10,7 +10,17 @@ import java.awt.event.MouseMotionListener;
  * Created by philipp on 28.02.16.
  */
 public class Paddle extends GRect implements MouseMotionListener {
-    public static double BASE_SPEED = 10;
+    public double getTargetXLocation() {
+        return targetXLocation;
+    }
+
+    public void setTargetXLocation(double targetXLocation) {
+        this.targetXLocation = targetXLocation;
+    }
+
+    double targetXLocation;
+
+    public static double BASE_SPEED = 20;
 
     private Dimension gameDimension;
 
@@ -27,21 +37,44 @@ public class Paddle extends GRect implements MouseMotionListener {
         return new Paddle(gameDimension, gameDimension.getWidth() / 2 - width / 2, gameDimension.getHeight() * .8, width, height);
     }
 
-    public void move(double xSpeed) {
-        if (xSpeed == 0) {
+    public void moveToTarget(double xSpeed) {
+        if (Double.isNaN(getTargetXLocation())) {
             return;
         }
-        double x = xSpeed + getX();
 
+        double target = getTargetXLocation();
+        xSpeed = Math.abs(xSpeed);
+        double oldX = getX();
+
+        if (target < oldX) {
+            xSpeed *= -1;
+        }
+
+        double x = oldX + xSpeed;
+
+        double offset = Math.abs(x - target);
+
+        if (offset < xSpeed) {
+            setTargetXLocation(Double.NaN);
+        }
+
+        x = keepOnBoard(x);
+
+
+        setLocation(x, getY());
+    }
+
+    private double keepOnBoard(double x) {
         if (x < 0) {
+            setTargetXLocation(Double.NaN);
             x = 0;
         }
 
         if (x + getWidth() > gameDimension.getWidth()) {
+            setTargetXLocation(Double.NaN);
             x = gameDimension.getWidth() - getWidth();
         }
-
-        setLocation(x, getY());
+        return x;
     }
 
     @Override
@@ -51,27 +84,8 @@ public class Paddle extends GRect implements MouseMotionListener {
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        int mouseX = e.getXOnScreen();
-        double targetX = (double) mouseX + getWidth() / 2;
-
-        /**
-         * needs spaceship operator
-         * return targetX <=> getX() :D
-         */
-
-        int directionModifier = 0;
-        if (targetX < getX()) {
-            directionModifier = 1;
-        }
-
-        if (targetX > getX()) {
-            directionModifier = -1;
-        }
-
-        if (directionModifier == 0) {
-            return;
-        }
-
-        move(BASE_SPEED * directionModifier);
+        double targetX = e.getX();
+        targetX -= getWidth() / 2;
+        setTargetXLocation(targetX);
     }
 }

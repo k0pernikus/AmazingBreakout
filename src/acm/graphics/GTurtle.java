@@ -99,14 +99,14 @@ public class GTurtle extends GObject {
 		pen.setLocation(x, y);
 	}
 
-/* Method: move(dx, dy) */
+/* Method: moveToTarget(dx, dy) */
 /**
  * Moves the turtle by the specified displacements.  The turtle draws a line if its
  * pen is down, but otherwise simply moves.
  *
- * @usage turtle.move(dx, dy);
- * @param dx The distance to move the object in the x direction (positive is rightward)
- * @param dy The distance to move the object in the y direction (positive is downward)
+ * @usage turtle.moveToTarget(dx, dy);
+ * @param dx The distance to moveToTarget the object in the x direction (positive is rightward)
+ * @param dy The distance to moveToTarget the object in the y direction (positive is downward)
  * @noshow
  */
 	public void move(double dx, double dy) {
@@ -124,7 +124,7 @@ public class GTurtle extends GObject {
  * The turtle draws a line if its pen is down, but otherwise simply moves.
  *
  * @usage turtle.forward(distance);
- * @param distance The distance to move in the current direction
+ * @param distance The distance to moveToTarget in the current direction
  */
 	public void forward(double distance) {
 		double dx = distance * GMath.cosDegrees(direction);
@@ -267,7 +267,7 @@ public class GTurtle extends GObject {
 /**
  * Sets the speed of the turtle, which must be a number between 0 (slowest)
  * and 1 (fastest).  Setting speed to a value less than one makes the turtle
- * move slowly, thereby making it easy to see exactly how a figure is being drawn.
+ * moveToTarget slowly, thereby making it easy to see exactly how a figure is being drawn.
  *
  * @usage turtle.setSpeed(speed);
  * @param speed The speed of the turtle (0 is slowest, 1 is fastest)

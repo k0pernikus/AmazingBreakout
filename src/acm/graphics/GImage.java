@@ -492,9 +492,9 @@ public class GImage extends GObject implements GResizable, GScalable {
  * is defined to be the height of the bounding box.
  */
 
-/* Inherited method: move(dx, dy) */
+/* Inherited method: moveToTarget(dx, dy) */
 /**
- * @inherited GObject#void move(double dx, double dy)
+ * @inherited GObject#void moveToTarget(double dx, double dy)
  * Moves the object on the screen using the displacements <code>dx</code> and <code>dy</code>.
  */
 

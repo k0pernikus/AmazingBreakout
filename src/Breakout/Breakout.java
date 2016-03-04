@@ -44,7 +44,7 @@ public class Breakout extends GraphicsProgram {
         super.init();
         addKeyListeners();
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-        this.gameDimension = new Dimension((int) screen.getWidth() / 4, (int) screen.getHeight() - 100);
+        this.gameDimension = new Dimension((int) screen.getWidth(), (int) screen.getHeight() - 100);
         resize((int) this.gameDimension.getWidth(), (int) this.gameDimension.getHeight());
 
         this.brickDestroyer = new BrickDestroyer();
@@ -73,9 +73,15 @@ public class Breakout extends GraphicsProgram {
 
     private void moveAllTheThings() {
         ball.move();
+        paddle.moveToTarget(Paddle.BASE_SPEED);
     }
 
     private void handleHitGObject(GObject hitElement) {
+        if (hitElement == null) {
+            return;
+        }
+
+
         if (hitElement instanceof Paddle) {
             ball.invertDirection(Ball.Y_DIRECTION);
         }

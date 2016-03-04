@@ -355,9 +355,9 @@ public class GPolygon extends GObject implements GFillable, GScalable {
  * Returns the y-coordinate of the object.
  */
 
-/* Inherited method: move(dx, dy) */
+/* Inherited method: moveToTarget(dx, dy) */
 /**
- * @inherited GObject#void move(double dx, double dy)
+ * @inherited GObject#void moveToTarget(double dx, double dy)
  * Moves the object on the screen using the displacements <code>dx</code> and <code>dy</code>.
  */
 

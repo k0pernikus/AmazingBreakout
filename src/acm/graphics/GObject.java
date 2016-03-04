@@ -148,13 +148,13 @@ public abstract class GObject implements Cloneable, Serializable {
 		return yc;
 	}
 
-/* Method: move(dx, dy) */
+/* Method: moveToTarget(dx, dy) */
 /**
  * Moves the object on the screen using the displacements <code>dx</code> and <code>dy</code>.
  *
- * @usage gobj.move(dx, dy);
- * @param dx The distance to move the object in the x direction (positive is rightward)
- * @param dy The distance to move the object in the y direction (positive is downward)
+ * @usage gobj.moveToTarget(dx, dy);
+ * @param dx The distance to moveToTarget the object in the x direction (positive is rightward)
+ * @param dy The distance to moveToTarget the object in the y direction (positive is downward)
  */
 	public void move(double dx, double dy) {
 		setLocation(xc + dx, yc + dy);
@@ -163,13 +163,13 @@ public abstract class GObject implements Cloneable, Serializable {
 /* Method: movePolar(r, theta) */
 /**
  * Moves the object using displacements given in polar coordinates.  The
- * parameter <code>r</code> specifies the distance to move and <code>theta</code>
+ * parameter <code>r</code> specifies the distance to moveToTarget and <code>theta</code>
  * specifies the angle in which the motion occurs.  The angle is measured in
  * degrees increasing counterclockwise from the +x axis.
  *
  * @usage gobj.movePolar(r, theta);
- * @param r The distance to move
- * @param theta The angle in which to move, measured in degrees
+ * @param r The distance to moveToTarget
+ * @param theta The angle in which to moveToTarget, measured in degrees
  *              increasing counterclockwise from the +x axis
  */
 	public final void movePolar(double r, double theta) {

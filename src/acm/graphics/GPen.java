@@ -44,9 +44,9 @@ import java.util.*;
  * <a href="index.html"><code>acm.graphics</code></a>
  * package, you use this class by constructing a new <code>GPen</code>
  * object and adding that object to a <a href="GCanvas.html"><code>GCanvas</code></a>.
- * You can move the pen on the canvas by using the methods
+ * You can moveToTarget the pen on the canvas by using the methods
  * <a href="#setLocation(double, double)"<code>setLocation</code></a> and
- * <a href="#move(double, double)"<code>move</code></a> and then
+ * <a href="#moveToTarget(double, double)"<code>moveToTarget</code></a> and then
  * draw lines using  <a href="#drawLine(double, double)"<code>drawLine</code></a>.
  * The <code>GPen</code> object remembers the series of lines
  * and can therefore repaint the screen image when necessary.
@@ -106,7 +106,7 @@ public class GPen extends GObject {
  */
 	public void setLocation(double x, double y) {
 		if (regionStarted) {
-			throw new ErrorException("It is illegal to move the pen while you are " +
+			throw new ErrorException("It is illegal to moveToTarget the pen while you are " +
 			                         "defining a filled region.");
 		}
 		super.setLocation(x, y);
@@ -287,7 +287,7 @@ public class GPen extends GObject {
 /**
  * Sets the speed of the pen, which must be a number between 0 (slowest)
  * and 1 (fastest).  Setting speed to a value less than one makes the pen
- * move slowly, thereby making it easy to see exactly how a figure is being drawn.
+ * moveToTarget slowly, thereby making it easy to see exactly how a figure is being drawn.
  *
  * @usage setSpeed(speed);
  * @param speed The speed of the pen (0 is slowest, 1 is fastest)
@@ -423,9 +423,9 @@ public class GPen extends GObject {
  * is defined to be the height of the bounding box.
  */
 
-/* Inherited method: move(dx, dy) */
+/* Inherited method: moveToTarget(dx, dy) */
 /**
- * @inherited GObject#void move(double dx, double dy)
+ * @inherited GObject#void moveToTarget(double dx, double dy)
  * Moves the pen on the screen by the specified displacements without drawing a line.
  */
 
