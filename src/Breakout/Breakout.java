@@ -19,6 +19,8 @@ import Breakout.Components.Paddle;
 
 public class Breakout extends GraphicsProgram {
 
+    public double BASE_SPEED_IN_PIXEL = 10;
+
     private Dimension gameDimension;
 
     private Board board;
@@ -38,32 +40,25 @@ public class Breakout extends GraphicsProgram {
     @Override
     public void keyPressed(KeyEvent event) {
         ball.unpause();
-
         super.keyPressed(event);
 
         int c = event.getKeyCode();
 
         switch (c) {
             case KeyEvent.VK_RIGHT:
-                this.paddle.setxMovement(10);
+                paddle.move(Paddle.BASE_SPEED);
                 break;
             case KeyEvent.VK_LEFT:
-                this.paddle.setxMovement(-10);
+                paddle.move(Paddle.BASE_SPEED);
                 break;
         }
-    }
-
-
-    @Override
-    public void keyReleased(KeyEvent event) {
-        super.keyReleased(event);
-        this.paddle.setxMovement(0);
     }
 
     @Override
     public void init() {
         super.init();
         addKeyListeners();
+        addMouseListeners();
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
         this.gameDimension = new Dimension((int) screen.getWidth() / 2, (int) screen.getHeight() - 100);
         resize((int) this.gameDimension.getWidth(), (int) this.gameDimension.getHeight());
@@ -92,7 +87,6 @@ public class Breakout extends GraphicsProgram {
 
     private void moveAllTheThings() {
         ball.move();
-        paddle.move();
     }
 
     private void handleHitGObject(GObject hitElement) {

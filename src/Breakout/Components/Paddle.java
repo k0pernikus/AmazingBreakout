@@ -3,13 +3,14 @@ package Breakout.Components;
 import acm.graphics.GRect;
 
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 
 /**
  * Created by philipp on 28.02.16.
  */
-public class Paddle extends GRect {
-
-    private double xMovement = 0;
+public class Paddle extends GRect implements MouseMotionListener {
+    public static double BASE_SPEED = 10;
 
     private Dimension gameDimension;
 
@@ -26,25 +27,51 @@ public class Paddle extends GRect {
         return new Paddle(gameDimension, gameDimension.getWidth() / 2 - width / 2, gameDimension.getHeight() * .8, width, height);
     }
 
-    public double getxMovement() {
-        return xMovement;
-    }
-
-    public void setxMovement(double xMovement) {
-        this.xMovement = xMovement;
-    }
-
-    public void move() {
-        double x = this.getxMovement() + this.getX();
+    public void move(double xSpeed) {
+        if (xSpeed == 0) {
+            return;
+        }
+        double x = xSpeed + getX();
 
         if (x < 0) {
             x = 0;
         }
 
-        if (x + this.getWidth() > this.gameDimension.getWidth()) {
-            x = this.gameDimension.getWidth() - this.getWidth();
+        if (x + getWidth() > gameDimension.getWidth()) {
+            x = gameDimension.getWidth() - getWidth();
         }
 
-        this.setLocation(x, this.getY());
+        setLocation(x, getY());
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        int mouseX = e.getXOnScreen();
+        double targetX = (double) mouseX + getWidth() / 2;
+
+        /**
+         * needs spaceship operator
+         * return targetX <=> getX() :D
+         */
+
+        int directionModifier = 0;
+        if (targetX < getX()) {
+            directionModifier = 1;
+        }
+
+        if (targetX > getX()) {
+            directionModifier = -1;
+        }
+
+        if (directionModifier == 0) {
+            return;
+        }
+
+        move(BASE_SPEED * directionModifier);
     }
 }
