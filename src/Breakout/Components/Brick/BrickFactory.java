@@ -1,6 +1,8 @@
 package Breakout.Components.Brick;
 
-import java.awt.*;
+import acm.util.RandomGenerator;
+
+import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -9,7 +11,7 @@ import java.util.Random;
  * Created by philipp on 29.02.16.
  */
 public class BrickFactory {
-    private Random random = new Random();
+    private Random random = new RandomGenerator();
 
     public static double hardBrickProbability = .2;
 
@@ -27,7 +29,6 @@ public class BrickFactory {
 
         return bricks;
     }
-
 
     private BrickInterface createBrick(double startX, double startY, double width, double height) {
         float chance = random.nextFloat();

@@ -65,12 +65,13 @@ public class Breakout extends GraphicsProgram {
 
         this.ball = new Ball(gameDimension.getWidth() * .5, gameDimension.getHeight() * .25, 10);
         addMouseListeners(ball);
+
         this.paddle = Paddle.makePaddle(this.gameDimension);
         addMouseListeners(paddle);
 
         this.addMouseListeners(this);
 
-        List<BrickInterface> bricks = new BrickFactory().buildBricks(gameDimension, 2, 10, 10);
+        List<BrickInterface> bricks = new BrickFactory().buildBricks(gameDimension, 2, 1, 0);
         this.board = new Board(this, gameDimension, paddle, ball, bricks);
     }
 
@@ -78,7 +79,7 @@ public class Breakout extends GraphicsProgram {
         board.draw();
 
         while (true) {
-            pause(this.loopDelay);
+            pause(loopDelay);
             if (isPaused) {
                 continue;
             }
@@ -88,8 +89,6 @@ public class Breakout extends GraphicsProgram {
             fieldKeeper.guardBall(ball);
             moveAllTheThings();
             board.draw();
-
-
         }
     }
 
