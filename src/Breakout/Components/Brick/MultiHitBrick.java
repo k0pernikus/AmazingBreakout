@@ -1,5 +1,7 @@
 package Breakout.Components.Brick;
 
+import acm.util.RandomGenerator;
+
 import java.awt.*;
 
 /**
@@ -8,32 +10,32 @@ import java.awt.*;
 public class MultiHitBrick extends Brick implements BrickInterface {
     private int hitCount = 0;
 
-    private Color[] colors = {
-            Color.red,
-            Color.orange,
-            Color.pink,
-            Color.green
-    };
+    private int maxHitCount = 2;
+
+    private RandomGenerator random;
 
     public MultiHitBrick(double x, double y, double width, double height) {
+
         super(x, y, width, height);
-        this.setFillColor(this.colors[this.hitCount]);
+        this.setFillColor(Color.red);
+        random = new RandomGenerator();
     }
 
     public boolean isDestroyable() {
         return hitCount > 3;
     }
 
+
     @Override
     public void destroy() {
-        if (this.hitCount > 3) {
+        if (hitCount > maxHitCount) {
             super.destroy();
         }
 
-        this.hitCount = this.hitCount + 1;
+        this.hitCount = hitCount + 1;
 
-        if (this.hitCount >= 0 && this.hitCount <= 3) {
-            this.setFillColor(this.colors[this.hitCount]);
+        if (hitCount < maxHitCount) {
+            setFillColor(random.nextColor());
         }
     }
 }

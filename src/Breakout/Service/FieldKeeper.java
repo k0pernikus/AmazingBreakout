@@ -29,14 +29,14 @@ public class FieldKeeper {
         }
 
         if (ball.getY() < 0) {
-            ball.setyDirectoon(10);
+            ball.setyDirection(10);
         }
 
         if (ball.getY() + ball.getWidth() > gameDimension.getHeight()) {
             /**
              * todo: lose the game
              */
-            ball.setyDirectoon(-10);
+            ball.setyDirection(-10);
         }
     }
 }

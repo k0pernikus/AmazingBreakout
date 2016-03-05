@@ -16,7 +16,7 @@ public class Ball extends GOval implements MouseInputListener{
     public static int Y_DIRECTION = 2;
 
     private double xDirection = 9;
-    private double yDirectoon = -7;
+    private double yDirection = -7;
 
     private double radius;
 
@@ -28,10 +28,10 @@ public class Ball extends GOval implements MouseInputListener{
     }
 
     public void move() {
-        if (this.isPaused == true) {
+        if (isPaused == true) {
             return;
         }
-        this.setLocation(this.getX() + xDirection, this.getY() + this.yDirectoon);
+        setLocation(getX() + xDirection, getY() + yDirection);
     }
 
     public void pause() {
@@ -56,7 +56,7 @@ public class Ball extends GOval implements MouseInputListener{
         }
 
         if (type == Ball.Y_DIRECTION) {
-            setyDirectoon(-getyDirectoon());
+            setyDirection(-getyDirection());
         }
     }
 
@@ -68,12 +68,12 @@ public class Ball extends GOval implements MouseInputListener{
         this.xDirection = xDirection;
     }
 
-    public double getyDirectoon() {
-        return yDirectoon;
+    public double getyDirection() {
+        return yDirection;
     }
 
-    public void setyDirectoon(double yDirectoon) {
-        this.yDirectoon = yDirectoon;
+    public void setyDirection(double yDirection) {
+        this.yDirection = yDirection;
     }
 
     public double getRadius() {
