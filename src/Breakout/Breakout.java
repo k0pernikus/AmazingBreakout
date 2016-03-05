@@ -13,14 +13,26 @@ import acm.program.GraphicsProgram;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.util.List;
 
 
 public class Breakout extends GraphicsProgram {
 
+    private boolean isPaused;
+
     private Dimension gameDimension;
 
     private Board board;
+
+    public Breakout() {
+        this.isPaused = true;
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        this.isPaused = !isPaused;
+    }
 
     private Ball ball;
 
@@ -52,22 +64,32 @@ public class Breakout extends GraphicsProgram {
         this.ballCollisionDetector = new BallCollisionDetector(this);
 
         this.ball = new Ball(gameDimension.getWidth() * .5, gameDimension.getHeight() * .25, 10);
+        addMouseListeners(ball);
         this.paddle = Paddle.makePaddle(this.gameDimension);
         addMouseListeners(paddle);
+
+        this.addMouseListeners(this);
 
         List<BrickInterface> bricks = new BrickFactory().buildBricks(gameDimension, 2, 10, 10);
         this.board = new Board(this, gameDimension, paddle, ball, bricks);
     }
 
     public void run() {
+        board.draw();
+
         while (true) {
-            GObject hitElement = this.ballCollisionDetector.getHitElement(ball);
+            pause(this.loopDelay);
+            if (isPaused) {
+                continue;
+            }
+
+            GObject hitElement = ballCollisionDetector.getHitElement(ball);
             handleHitGObject(hitElement);
             fieldKeeper.guardBall(ball);
             moveAllTheThings();
             board.draw();
 
-            pause(this.loopDelay);
+
         }
     }
 

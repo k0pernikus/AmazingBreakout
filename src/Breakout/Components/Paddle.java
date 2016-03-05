@@ -5,6 +5,7 @@ import acm.graphics.GRect;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
+import java.awt.geom.Arc2D;
 
 /**
  * Created by philipp on 28.02.16.
@@ -20,7 +21,7 @@ public class Paddle extends GRect implements MouseMotionListener {
 
     double targetXLocation;
 
-    public static double BASE_SPEED = 20;
+    public static double BASE_SPEED = 25;
 
     private Dimension gameDimension;
 
@@ -54,7 +55,7 @@ public class Paddle extends GRect implements MouseMotionListener {
 
         double offset = Math.abs(x - target);
 
-        if (offset < xSpeed) {
+        if (offset <= xSpeed) {
             setTargetXLocation(Double.NaN);
         }
 
@@ -87,5 +88,8 @@ public class Paddle extends GRect implements MouseMotionListener {
         double targetX = e.getX();
         targetX -= getWidth() / 2;
         setTargetXLocation(targetX);
+        if (Math.abs(getX() - targetX) < BASE_SPEED) {
+            setTargetXLocation(Double.NaN);
+        }
     }
 }

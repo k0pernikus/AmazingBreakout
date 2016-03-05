@@ -2,12 +2,14 @@ package Breakout.Components;
 
 import acm.graphics.GOval;
 
+import javax.swing.event.MouseInputListener;
 import java.awt.*;
+import java.awt.event.MouseEvent;
 
 /**
  * Created by philipp on 27.02.16.
  */
-public class Ball extends GOval {
+public class Ball extends GOval implements MouseInputListener{
     private boolean isPaused = true;
 
     public static int X_DIRECTION = 1;
@@ -41,7 +43,8 @@ public class Ball extends GOval {
     }
 
     public void togglePause() {
-        this.isPaused ^= true;
+//        this.isPaused ^= true;
+        this.isPaused = !isPaused;
     }
 
     /**
@@ -79,5 +82,40 @@ public class Ball extends GOval {
 
     public void setRadius(double radius) {
         this.radius = radius;
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        togglePause();
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+
     }
 }
