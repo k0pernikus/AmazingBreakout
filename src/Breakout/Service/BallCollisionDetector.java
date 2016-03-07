@@ -29,18 +29,17 @@ public class BallCollisionDetector {
         double top = 0;
         double bottom = 0;
 
-        if (!(ball.getTop() <= brick.getTop() || ball.getBottom() >= brick.getBottom()))
+        if (!(ball.getTop() <= brick.getTop() || ball.getBottom() >= brick.getBottom())) {
+            if (brick.getLeft() >= ball.getLeft() ) {
+                left = 1;
+            }
 
-        if (brick.getLeft() >= ball.getLeft() ) {
-            left = 1;
-        }
-
-        if (brick.getRight() <= ball.getRight()) {
-            right = 1;
+            if (brick.getRight() <= ball.getRight()) {
+                right = 1;
+            }
         }
 
         if (!(ball.getLeft() <= brick.getLeft() || ball.getRight() >= brick.getRight())) {
-
             if (brick.getTop() <= ball.getTop()) {
                 top = 1;
             }

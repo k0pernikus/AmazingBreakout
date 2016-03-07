@@ -21,7 +21,7 @@ public class Brick extends GRect implements BrickInterface {
     }
 
     public boolean isDestroyed() {
-        return this.destroyed;
+        return destroyed;
     }
 
     @Override
@@ -34,7 +34,7 @@ public class Brick extends GRect implements BrickInterface {
             throw new UndestroyableException();
         }
 
-        this.setDestroyed(true);
+        setDestroyed(true);
     }
 
     private void setDestroyed(boolean destroyed) {
