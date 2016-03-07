@@ -5,13 +5,16 @@ import Breakout.Components.Board;
 import Breakout.Components.Brick.BrickFactory;
 import Breakout.Components.Brick.BrickInterface;
 import Breakout.Components.Paddle;
+import Breakout.Components.Rectangle;
 import Breakout.Service.BallCollisionDetector;
 import Breakout.Service.BrickDestroyer;
+import Breakout.Service.Collision;
 import Breakout.Service.FieldKeeper;
 import acm.graphics.GObject;
 import acm.program.GraphicsProgram;
 
-import java.awt.*;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.List;
@@ -71,7 +74,7 @@ public class Breakout extends GraphicsProgram {
 
         this.addMouseListeners(this);
 
-        List<BrickInterface> bricks = new BrickFactory().buildBricks(gameDimension, 2, 1, 0);
+        List<BrickInterface> bricks = new BrickFactory().buildBricks(gameDimension, 2, 8, 0);
         this.board = new Board(this, gameDimension, paddle, ball, bricks);
     }
 
@@ -102,15 +105,25 @@ public class Breakout extends GraphicsProgram {
             return;
         }
 
+        Rectangle box1 = new Rectangle(ball.getBounds());
+        Rectangle box2 = new Rectangle(hitElement.getBounds());
 
-        if (hitElement instanceof Paddle) {
+        Collision collision = ballCollisionDetector.getCollisionSide(box1, box2);
+
+        boolean flipX = collision.isHorizontalCollsion();
+        boolean flipY = collision.isVerticalCollsion();
+
+
+        if (flipX) {
+            ball.invertDirection(Ball.X_DIRECTION);
+        }
+
+        if (flipY) {
             ball.invertDirection(Ball.Y_DIRECTION);
         }
 
         if (hitElement instanceof BrickInterface) {
-            if (brickDestroyer.destroyBrick((BrickInterface) hitElement)) {
-                ball.invertDirection(Ball.Y_DIRECTION);
-            }
+            brickDestroyer.destroyBrick((BrickInterface) hitElement);
         }
     }
 }

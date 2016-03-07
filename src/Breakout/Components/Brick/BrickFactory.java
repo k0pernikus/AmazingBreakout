@@ -17,7 +17,7 @@ public class BrickFactory {
 
     public List<BrickInterface> buildBricks(Dimension dimension, int rowsAmount, int blocksPerRowAmount, int offset) {
         double width = dimension.width / blocksPerRowAmount - offset;
-        double height = dimension.height * .03;
+        double height = dimension.height * .08;
         List<BrickInterface> bricks = new ArrayList<>();
         for (double x = 0; x <= blocksPerRowAmount; x++) {
             for (double y = 0; y <= rowsAmount; y++) {
